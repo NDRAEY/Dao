@@ -1,17 +1,20 @@
 pub mod ansi;
+pub mod termsize;
 
 pub struct Console {
-	line: usize,
-	column: usize
+    line: usize,
+    column: usize,
 }
 
-impl Console {
-	
-}
+impl Console {}
 
 fn main() {
-	ansi::clean_screen();
-	ansi::move_to_beginning();
+    let size = termsize::get_terminal_size();
 
-	
+    ansi::clean_screen();
+    ansi::move_to_beginning();
+
+    for i in 0..size.columns {
+    	print!("=");
+    }
 }
