@@ -6,6 +6,7 @@ pub struct TerminalContext {
     termios: Termios,
 }
 
+#[cfg(target_os = "linux")]
 fn linux_setup() -> Termios {
     let termios = termios::Termios::from_fd(libc::STDIN_FILENO).unwrap();
     let mut new_termios = termios;
