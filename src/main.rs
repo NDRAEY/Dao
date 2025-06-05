@@ -125,7 +125,6 @@ impl Editor {
     fn process_key(&mut self, key: char, additional: &[u8]) -> bool {
         match key {
             keys::CTRL_Q => {
-                // Ctrl + Q
                 ansi::clean_screen();
                 ansi::move_to_beginning();
 
@@ -217,7 +216,6 @@ fn main() {
 
     // input_test();
 
-    // Read key by key and update the editor
     loop {
         let mut buf = [0; 4];
         let rdc = std::io::stdin().read(&mut buf).unwrap();
@@ -243,20 +241,20 @@ fn main() {
     println!("{}", editor.editor.text());
 }
 
-fn input_test() {
-    loop {
-        let mut buf = [0; 4];
-        let rdc = std::io::stdin().read(&mut buf).unwrap();
+// fn input_test() {
+//     loop {
+//         let mut buf = [0; 4];
+//         let rdc = std::io::stdin().read(&mut buf).unwrap();
 
-        let mut chars = str::from_utf8(&buf[0..rdc])
-            .unwrap()
-            .trim_end_matches('\0')
-            .chars();
+//         let mut chars = str::from_utf8(&buf[0..rdc])
+//             .unwrap()
+//             .trim_end_matches('\0')
+//             .chars();
 
-        let key = chars.next().unwrap();
+//         let key = chars.next().unwrap();
 
-        let additionals = &buf[key.len_utf8()..];
+//         let additionals = &buf[key.len_utf8()..];
 
-        dbg!(&key, &additionals);
-    }
-}
+//         dbg!(&key, &additionals);
+//     }
+// }
