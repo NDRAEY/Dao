@@ -29,4 +29,4 @@ dependencies = [
 [[package]]
 name = "text_editor_foundation"
 version = "0.1.0"
-source = "git+https://github.com/NDRAEY/text_editor_foundation#73777af15eccca01d702dd92e0f6eb35102c65d2"
+source = "git+https://github.com/NDRAEY/text_editor_foundation#edcce715e32e628f435f8a4352751069c59d3824"
