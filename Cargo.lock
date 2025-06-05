@@ -7,6 +7,8 @@ name = "dao-editor"
 version = "0.1.0"
 dependencies = [
  "libc",
+ "termios",
+ "text_editor_foundation",
 ]
 
 [[package]]
@@ -14,3 +16,17 @@ name = "libc"
 version = "0.2.172"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d750af042f7ef4f724306de029d18836c26c1765a54a6a3f094cbd23a7267ffa"
+
+[[package]]
+name = "termios"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "411c5bf740737c7918b8b1fe232dca4dc9f8e754b8ad5e20966814001ed0ac6b"
+dependencies = [
+ "libc",
+]
+
+[[package]]
+name = "text_editor_foundation"
+version = "0.1.0"
+source = "git+https://github.com/NDRAEY/text_editor_foundation#73777af15eccca01d702dd92e0f6eb35102c65d2"

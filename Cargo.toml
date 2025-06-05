@@ -5,3 +5,5 @@ edition = "2024"
 
 [dependencies]
 libc = "0.2.172"
+termios = "0.3.3"
+text_editor_foundation = { git = "https://github.com/NDRAEY/text_editor_foundation", version = "0.1.0" }

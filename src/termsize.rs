@@ -1,8 +1,4 @@
-#[derive(Debug)]
-pub struct Size {
-    pub lines: usize,
-    pub columns: usize,
-}
+use crate::aux::Size;
 
 pub fn get_terminal_size() -> Size {
     unsafe {
@@ -14,7 +10,7 @@ pub fn get_terminal_size() -> Size {
         );
 
         Size {
-            lines: value.ws_row as _,
+            rows: value.ws_row as _,
             columns: value.ws_col as _,
         }
     }
