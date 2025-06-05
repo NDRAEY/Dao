@@ -31,10 +31,12 @@ pub fn setup() -> TerminalContext {
 
         TerminalContext { termios }
     }
+
+    TerminalContext {}
 }
 
 pub fn restore(context: &TerminalContext) {
-        #[cfg(any(target_os = "linux", target_os = "android"))]
+    #[cfg(any(target_os = "linux", target_os = "android"))]
     {
         linux_restore(context.termios);
     }
