@@ -1,4 +1,6 @@
+#[cfg(any(target_os = "linux", target_os = "android"))]
 use libc::ECHO;
+#[cfg(any(target_os = "linux", target_os = "android"))]
 use termios::{self, ICANON, TCSANOW, Termios, tcsetattr};
 
 pub struct TerminalContext {
@@ -6,7 +8,7 @@ pub struct TerminalContext {
     termios: Termios,
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "android"))]
 fn linux_setup() -> Termios {
     let termios = termios::Termios::from_fd(libc::STDIN_FILENO).unwrap();
     let mut new_termios = termios;
@@ -17,6 +19,7 @@ fn linux_setup() -> Termios {
     termios
 }
 
+#[cfg(any(target_os = "linux", target_os = "android"))]
 fn linux_restore(termios: Termios) {
     tcsetattr(libc::STDIN_FILENO, TCSANOW, &termios).unwrap();
 }
