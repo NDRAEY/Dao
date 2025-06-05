@@ -84,13 +84,15 @@ impl Editor {
 
     fn draw_footer(&self) {
         let footer_string = format!(
-            "- {}x{} -",
+            "- L{} C{} - {}x{} -",
+            self.editor.cursor().y + 1,
+            self.editor.cursor().x + 1,
             self.terminal_size.columns, self.terminal_size.rows
         );
 
         print!("{}", footer_string);
 
-        for i in 0..(self.terminal_size.columns - footer_string.len()) {
+        for _ in 0..(self.terminal_size.columns - footer_string.len()) {
             print!("-");
         }
     }
@@ -128,10 +130,14 @@ impl Editor {
             '\u{1b}' => {
                 if additional == keys::ADDITIONAL_ARROW_UP {
                     self.editor.move_up();
-                    self.editor.move_to_line_end();
+                    if self.editor.cursor().x > self.editor.get_line_at_cursor().len() {
+                        self.editor.move_to_line_end();
+                    }
                 } else if additional == keys::ADDITIONAL_ARROW_DOWN {
                     self.editor.move_down();
-                    self.editor.move_to_line_end();
+                    if self.editor.cursor().x > self.editor.get_line_at_cursor().len() {
+                        self.editor.move_to_line_end();
+                    }
                 } else if additional == keys::ADDITIONAL_ARROW_RIGHT {
                     self.editor.move_right();
                 } else if additional == keys::ADDITIONAL_ARROW_LEFT {
