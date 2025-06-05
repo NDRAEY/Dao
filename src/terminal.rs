@@ -2,7 +2,7 @@ use libc::ECHO;
 use termios::{self, ICANON, TCSANOW, Termios, tcsetattr};
 
 pub struct TerminalContext {
-    #[cfg(target_os = "linux")]
+    #[cfg(any(target_os = "linux", target_os = "android"))]
     termios: Termios,
 }
 
@@ -22,7 +22,7 @@ fn linux_restore(termios: Termios) {
 }
 
 pub fn setup() -> TerminalContext {
-    #[cfg(target_os = "linux")]
+    #[cfg(any(target_os = "linux", target_os = "android"))]
     {
         let termios = linux_setup();
 
@@ -31,7 +31,7 @@ pub fn setup() -> TerminalContext {
 }
 
 pub fn restore(context: &TerminalContext) {
-    #[cfg(target_os = "linux")]
+        #[cfg(any(target_os = "linux", target_os = "android"))]
     {
         linux_restore(context.termios);
     }
