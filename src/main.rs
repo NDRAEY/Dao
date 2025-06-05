@@ -125,6 +125,21 @@ impl Editor {
 
                 false
             }
+            '\u{1b}' => {
+                if additional == keys::ADDITIONAL_ARROW_UP {
+                    self.editor.move_up();
+                    self.editor.move_to_line_end();
+                } else if additional == keys::ADDITIONAL_ARROW_DOWN {
+                    self.editor.move_down();
+                    self.editor.move_to_line_end();
+                } else if additional == keys::ADDITIONAL_ARROW_RIGHT {
+                    self.editor.move_right();
+                } else if additional == keys::ADDITIONAL_ARROW_LEFT {
+                    self.editor.move_left();
+                }
+
+                false
+            }
             _ => {
                 self.editor.insert_char_move(key);
 
@@ -155,7 +170,7 @@ fn main() {
 
     ansi::clean_screen();
 
-    // editor.render();
+    editor.render();
 
     // Read key by key and update the editor
     loop {
@@ -173,14 +188,14 @@ fn main() {
 
         let additionals = &buf[key.len_utf8()..];
 
-        dbg!(&key);
+        // dbg!(&key, &additionals);
 
         let is_exit = editor.process_key(key, additionals);
 
         if is_exit {
             break;
         } else {
-            // editor.render();
+            editor.render();
         }
     }
 
