@@ -51,11 +51,8 @@ impl AlertMessage {
 
         loop {
             let key = get_key();
-            match key {
-                Key::Enter => {
-                    return MessageBoxResult::Ok;
-                }
-                _ => {}
+            if let Key::Enter = key {
+                return MessageBoxResult::Ok;
             }
         }
     }

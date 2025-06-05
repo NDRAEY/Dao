@@ -26,7 +26,7 @@ pub fn get_key() -> Key {
         .trim_end_matches('\0')
         .chars();
 
-    let key = chars.nth(0).unwrap();
+    let key = chars.next().unwrap();
 
     let additional = &buf[key.len_utf8()..];
 

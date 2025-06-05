@@ -123,7 +123,7 @@ impl Editor {
                 ansi::clean_screen();
                 ansi::move_to_beginning();
 
-                return true;
+                true
             }
             keys::ENTER => {
                 self.editor.insert_str_move("\n");
@@ -223,8 +223,7 @@ fn main() {
             .trim_end_matches('\0')
             .chars();
 
-        let key = chars
-            .nth(0)
+        let key = chars.next()
             .unwrap();
 
         let additionals = &buf[key.len_utf8()..];
@@ -251,8 +250,7 @@ fn input_test() {
             .trim_end_matches('\0')
             .chars();
 
-        let key = chars
-            .nth(0)
+        let key = chars.next()
             .unwrap();
 
         let additionals = &buf[key.len_utf8()..];

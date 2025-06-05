@@ -8,7 +8,7 @@ pub struct TerminalContext {
 
 fn linux_setup() -> Termios {
     let termios = termios::Termios::from_fd(libc::STDIN_FILENO).unwrap();
-    let mut new_termios = termios.clone();
+    let mut new_termios = termios;
     new_termios.c_lflag &= !(ICANON | ECHO);
 
     tcsetattr(libc::STDIN_FILENO, TCSANOW, &mut new_termios).unwrap();
