@@ -15,19 +15,19 @@ pub fn clean_screen() {
 }
 
 pub fn bold() {
-	code("[1m");
+    code("[1m");
 }
 
 pub fn color(color_code: u8) {
-	code(&format!("[{color_code}m"));
+    code(&format!("[{color_code}m"));
 }
 
 pub fn inverse() {
-	code("[7m");
+    code("[7m");
 }
 
 pub fn reset() {
-	code("[0m");
+    code("[0m");
 }
 
 pub fn clean_till_end() {

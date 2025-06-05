@@ -1,6 +1,13 @@
 use std::io::Write;
 
-use crate::{ansi, aux::Size, ui::{calculate_center_from, draw_box, input::{get_key, Key}}};
+use crate::{
+    ansi,
+    aux::Size,
+    ui::{
+        calculate_center_from, draw_box,
+        input::{Key, get_key},
+    },
+};
 
 #[derive(Debug, Clone, Copy, Default)]
 pub enum MessageBoxButtons {
@@ -22,7 +29,10 @@ pub struct AlertMessage {
 
 impl AlertMessage {
     pub fn new(message: String) -> Self {
-        Self { message, buttons: MessageBoxButtons::default() }
+        Self {
+            message,
+            buttons: MessageBoxButtons::default(),
+        }
     }
 
     pub fn with_buttons(message: String, buttons: MessageBoxButtons) -> Self {
@@ -30,7 +40,7 @@ impl AlertMessage {
     }
 
     pub fn show(&self, x: usize, y: usize) -> MessageBoxResult {
-        let width = self.message.len() + 4;  // `| ` + ` |`
+        let width = self.message.len() + 4; // `| ` + ` |`
         let height = 4;
 
         draw_box(x, y, width, height);
@@ -58,7 +68,10 @@ impl AlertMessage {
     }
 
     pub fn show_centered(&self, terminal_size: &Size) {
-        let box_size = Size { columns: self.message.len() + 4, rows: 4 };
+        let box_size = Size {
+            columns: self.message.len() + 4,
+            rows: 4,
+        };
         let (x, y) = calculate_center_from(terminal_size, &box_size);
         self.show(x, y);
     }

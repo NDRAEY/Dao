@@ -1,5 +1,5 @@
 use libc::ECHO;
-use termios::{self, tcsetattr, Termios, ICANON, TCSANOW};
+use termios::{self, ICANON, TCSANOW, Termios, tcsetattr};
 
 pub struct TerminalContext {
     #[cfg(target_os = "linux")]
@@ -25,9 +25,7 @@ pub fn setup() -> TerminalContext {
     {
         let termios = linux_setup();
 
-        TerminalContext {
-            termios,
-        }
+        TerminalContext { termios }
     }
 }
 

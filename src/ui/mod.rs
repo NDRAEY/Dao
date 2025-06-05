@@ -28,10 +28,9 @@ pub fn draw_box(x: usize, y: usize, width: usize, height: usize) {
 
     ansi::move_cursor(y + height, x);
     print!("└");
-    
+
     for _ in 0..width {
         print!("─");
     }
     print!("┘");
 }
-

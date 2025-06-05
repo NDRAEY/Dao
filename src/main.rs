@@ -21,7 +21,7 @@ struct Editor {
     editor: VirtualEditor,
 
     terminal_context: terminal::TerminalContext,
-    filename: Option<String>
+    filename: Option<String>,
 }
 
 impl Editor {
@@ -71,7 +71,7 @@ impl Editor {
 
         for i in 1..line_renders_count {
             ansi::move_cursor(i + 1, 0);
-            
+
             let lineidx = i - 1 + scroll_factor;
             let line = if lineidx < len { lines[lineidx] } else { "" };
             print!("{:>line_number_padding$} | {}", lineidx + 1, line);
@@ -93,16 +93,22 @@ impl Editor {
         let x = pos.x + line_number_padding + 4; // 4 is the padding of the line number and the ` | `
         let y = pos.y + 2;
 
-        ansi::move_cursor(y.clamp(2, line_renders_count - (line_renders_count / 4) + 2), x);
+        ansi::move_cursor(
+            y.clamp(2, line_renders_count - (line_renders_count / 4) + 2),
+            x,
+        );
     }
 
     fn draw_footer(&self) {
         let footer_string = format!(
             "-- {} --- L{} C{} --- {}x{} ---",
-            self.filename.as_ref().unwrap_or(&"<No Filename>".to_string()),
+            self.filename
+                .as_ref()
+                .unwrap_or(&"<No Filename>".to_string()),
             self.editor.cursor().y + 1,
             self.editor.cursor().x + 1,
-            self.terminal_size.columns, self.terminal_size.rows
+            self.terminal_size.columns,
+            self.terminal_size.rows
         );
 
         print!("{}", footer_string);
@@ -167,9 +173,7 @@ impl Editor {
 
                 false
             }
-            key if key.is_ascii_control() => {
-                false
-            }
+            key if key.is_ascii_control() => false,
             _ => {
                 self.editor.insert_char_move(key);
 
@@ -197,9 +201,9 @@ impl Drop for Editor {
 
 fn main() {
     let filename = std::env::args().nth(1);
-    
+
     let mut editor = Editor::new();
-    
+
     if let Some(filename) = filename {
         let file = std::fs::read_to_string(&filename).unwrap();
 
@@ -223,8 +227,7 @@ fn main() {
             .trim_end_matches('\0')
             .chars();
 
-        let key = chars.next()
-            .unwrap();
+        let key = chars.next().unwrap();
 
         let additionals = &buf[key.len_utf8()..];
 
@@ -250,8 +253,7 @@ fn input_test() {
             .trim_end_matches('\0')
             .chars();
 
-        let key = chars.next()
-            .unwrap();
+        let key = chars.next().unwrap();
 
         let additionals = &buf[key.len_utf8()..];
 

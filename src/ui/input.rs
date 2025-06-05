@@ -14,7 +14,7 @@ pub enum Key {
     Enter,
     Escape,
     Tab,
-    None
+    None,
 }
 
 pub fn get_key() -> Key {
