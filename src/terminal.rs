@@ -29,9 +29,10 @@ pub fn setup() -> TerminalContext {
     {
         let termios = linux_setup();
 
-        TerminalContext { termios }
+        return TerminalContext { termios };
     }
 
+    #[cfg(not(any(target_os = "linux", target_os = "android")))]
     TerminalContext {}
 }
 

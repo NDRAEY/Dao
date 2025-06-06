@@ -20,7 +20,7 @@ fn get_terminal_size_linux() -> Size {
 pub fn get_terminal_size() -> Size {
     #[cfg(any(target_os = "linux", target_os = "android"))]
     {
-        get_terminal_size_linux()
+        return get_terminal_size_linux();
     }
 
     Size {
