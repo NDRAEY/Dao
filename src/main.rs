@@ -214,7 +214,7 @@ fn main() {
 
     editor.render();
 
-    // input_test();
+    //input_test();
 
     loop {
         let mut buf = [0; 4];
@@ -241,20 +241,22 @@ fn main() {
     println!("{}", editor.editor.text());
 }
 
-// fn input_test() {
-//     loop {
-//         let mut buf = [0; 4];
-//         let rdc = std::io::stdin().read(&mut buf).unwrap();
+/*
+fn input_test() {
+    loop {
+        let mut buf = [0; 4];
+         let rdc = std::io::stdin().read(&mut buf).unwrap();
 
-//         let mut chars = str::from_utf8(&buf[0..rdc])
-//             .unwrap()
-//             .trim_end_matches('\0')
-//             .chars();
+         let mut chars = str::from_utf8(&buf[0..rdc])
+             .unwrap()
+             .trim_end_matches('\0')
+             .chars();
 
-//         let key = chars.next().unwrap();
+         let key = chars.next().unwrap();
 
-//         let additionals = &buf[key.len_utf8()..];
+         let additionals = &buf[key.len_utf8()..];
 
-//         dbg!(&key, &additionals);
-//     }
-// }
+         dbg!(&key, &additionals);
+     }
+ }
+*/
