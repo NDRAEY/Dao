@@ -24,7 +24,7 @@ pub fn get_terminal_size() -> Size {
     }
 
     Size {
-        rows: 70,
-        columns: 24,
+        rows: 24,
+        columns: 70,
     }
 }

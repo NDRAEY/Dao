@@ -45,7 +45,7 @@ impl Editor {
             print!("-");
         }
 
-        println!();
+        print!("\n");
     }
 
     fn text_window_height(&self) -> usize {
@@ -70,9 +70,9 @@ impl Editor {
         let scroll_factor = self.scroll_factor();
 
         for i in 1..line_renders_count {
-            ansi::move_cursor(i + 1, 0);
+            ansi::move_cursor(i + 1, 1);
 
-            let lineidx = i - 1 + scroll_factor;
+            let lineidx = (i - 1) + scroll_factor;
             let line = if lineidx < len { lines[lineidx] } else { "" };
             print!("{:>line_number_padding$} | {}", lineidx + 1, line);
 
@@ -90,7 +90,7 @@ impl Editor {
             .to_string()
             .len();
 
-        let x = pos.x + line_number_padding + 4; // 4 is the padding of the line number and the ` | `
+        let x = pos.x + line_number_padding + 3 + 1; // 3 is the padding of the ` | `
         let y = pos.y + 2;
 
         ansi::move_cursor(
@@ -116,6 +116,9 @@ impl Editor {
         for _ in 0..(self.terminal_size.columns - footer_string.len()) {
             print!("-");
         }
+
+        ansi::move_cursor(self.terminal_size.rows - 1, 0);
+        println!();
     }
 
     fn flush_screen(&self) {
@@ -225,7 +228,10 @@ fn main() {
             .trim_end_matches('\0')
             .chars();
 
-        let key = chars.next().unwrap();
+        let key = match chars.next() {
+            None => continue,
+            Some(key) => key
+        };
 
         let additionals = &buf[key.len_utf8()..];
 
