@@ -230,7 +230,7 @@ fn main() {
 
         let key = match chars.next() {
             None => continue,
-            Some(key) => key
+            Some(key) => key,
         };
 
         let additionals = &buf[key.len_utf8()..];

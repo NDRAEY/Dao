@@ -1,4 +1,9 @@
+// Since NocturneOS is known to nobody, I allow unexpected cfgs.
+#![allow(unexpected_cfgs)]
+
 use crate::aux::Size;
+#[cfg(target_os = "nocturne")]
+use std::os::nocturne::terminal;
 
 #[cfg(any(target_os = "linux", target_os = "android"))]
 fn get_terminal_size_linux() -> Size {
@@ -17,14 +22,23 @@ fn get_terminal_size_linux() -> Size {
     }
 }
 
+#[cfg(target_os = "nocturne")]
+pub fn get_terminal_size_nocturne() -> Size {
+    let ts = terminal::terminal_size();
+
+    Size {
+        rows: s.0,
+        columns: s.1,
+    }
+}
+
 pub fn get_terminal_size() -> Size {
     #[cfg(any(target_os = "linux", target_os = "android"))]
     {
-        return get_terminal_size_linux();
+        get_terminal_size_linux()
     }
-
-    Size {
-        rows: 24,
-        columns: 70,
+    #[cfg(target_os = "nocturne")]
+    {
+        get_terminal_size_nocturne()
     }
 }
